@@ -267,12 +267,12 @@ class Netconf(object):
         return self.device.facts
 
     def get_config(self, config_format="text"):
-        if config_format not in ['text', 'set', 'xml']:
-            msg = 'invalid config format... must be one of xml, text, set'
+        if config_format not in ['text', 'set', 'xml', 'json']:
+            msg = 'invalid config format... must be one of xml, text, set or json'
             self._fail(msg=msg)
 
         ele = self.rpc('get_configuration', format=config_format)
-        if config_format in ['text', 'set']:
+        if config_format in ['text', 'set', 'json']:
            return str(ele.text).strip()
         elif config_format == "xml":
             return ele
